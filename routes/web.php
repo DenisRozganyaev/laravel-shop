@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\BoardController;
+use App\Http\Controllers\Admin\ProductsController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,11 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+
+// localhost/admin/.... route(admin.products)
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function() {
+    Route::get('/', BoardController::class)->name('home');
+
+    Route::resource('products', ProductsController::class)->except(['show']);
+});
 

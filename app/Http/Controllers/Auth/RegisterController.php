@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Rules\Phone;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -50,7 +52,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:35'],
+            'surname' => ['required', 'string', 'max:50'],
+            'phone' => ['required', 'string', 'max:15', 'unique:users', new Phone],
+            'birthdate' => ['required', 'date', 'before_or_equal:-18 years'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -64,8 +69,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $role = Role::customer()->first();
+
+        $data = $this->validator($data)->validated();
+
+        return $role->users()->create([
             'name' => $data['name'],
+            'surname' => $data['surname'],
+            'birthdate' => $data['birthdate'],
+            'phone' => $data['phone'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
