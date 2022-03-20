@@ -129,28 +129,28 @@
                                class="col-md-4 col-form-label text-md-right">{{ __('Thumbnail') }}</label>
                         <div class="col-md-6">
                             <div class="row">
-{{--                                <div class="col-md-6">--}}
-{{--                                    <img src="#" id="thumbnail-preview" alt="">--}}
-{{--                                </div>--}}
+                                <div class="col-md-6">
+                                    <img src="#" id="thumbnail-preview" alt="">
+                                </div>
                                 <div class="col-md-6">
                                     <input type="file" name="thumbnail" id="thumbnail">
                                 </div>
                             </div>
                         </div>
                     </div>
-{{--                    <div class="form-group row">--}}
-{{--                        <label for="images" class="col-md-4 col-form-label text-md-right">{{ __('Images') }}</label>--}}
-{{--                        <div class="col-md-6">--}}
-{{--                            <div class="row">--}}
-{{--                                <div class="col-md-12">--}}
-{{--                                    <div class="row images-wrapper"></div>--}}
-{{--                                </div>--}}
-{{--                                <div class="col-md-12">--}}
-{{--                                    <input type="file" name="images[]" onChange="readMultiFiles" id="images" multiple>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                    <div class="form-group row">
+                        <label for="images" class="col-md-4 col-form-label text-md-right">{{ __('Images') }}</label>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row images-wrapper"></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="file" name="images[]" onChange="readMultiFiles" id="images" multiple>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="form-group row">
                         <div class="col-md-10 text-right">
@@ -161,41 +161,7 @@
             </div>
         </div>
     </div>
-
-{{--    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>--}}
-{{--    <script type="text/javascript">--}}
-{{--        if (window.FileReader) {--}}
-{{--            document.getElementById("images").onchange = function () {--}}
-{{--                let counter = -1,--}}
-{{--                    file;--}}
-
-{{--                $('.images-wrapper').html('');--}}
-
-{{--                let template = `<div class="col-sm-12 d-flex justify-content-center align-items-center">--}}
-{{--                                  <img src="__url__" class="card-img-top" style="max-width: 80%; margin: 0 auto; display: block;">--}}
-{{--                                </div>`;--}}
-
-{{--                while (file = this.files[++counter]) {--}}
-{{--                    let reader = new FileReader();--}}
-{{--                    reader.onloadend = (function () {--}}
-{{--                        return function () {--}}
-{{--                            let img = template.replace('__url__', this.result);--}}
-{{--                            $('.images-wrapper').append(img)--}}
-{{--                        }--}}
-{{--                    })(file);--}}
-{{--                    reader.readAsDataURL(file);--}}
-{{--                }--}}
-{{--            }--}}
-{{--        }--}}
-
-{{--        $(document).ready(function (e) {--}}
-{{--            $('#thumbnail').change(function () {--}}
-{{--                let reader = new FileReader();--}}
-{{--                reader.onload = (e) => {--}}
-{{--                    $('#thumbnail-preview').attr('src', e.target.result);--}}
-{{--                }--}}
-{{--                reader.readAsDataURL(this.files[0]);--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
 @endsection
+@push('scripts')
+    <script src="{{ asset('js/images-preview.js') }}" type="text/javascript"></script>
+@endpush

@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use App\Services\ImageService;
+use App\Services\FileStorageService;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,12 +28,31 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function setThumbnailAttributes($image)
+    public function setThumbnailAttribute($image)
     {
         if (!empty($this->attributes['thumbnail'])) {
-            ImageService::remove($this->attributes['thumbnail']);
+            FileStorageService::remove($this->attributes['thumbnail']);
         }
 
-        $this->attributes['thumbnail'] = ImageService::upload($image);
+        $this->attributes['thumbnail'] = FileStorageService::upload($image);
+    }
+
+//    public function thumbnail(): Attribute
+//    {
+//        return new Attribute(
+//            set: function($image) {
+//                dd($this->attributes['thumbnail']);
+//                if (!empty($this->attributes['thumbnail'])) {
+//                    FileStorageService::remove($this->attributes['thumbnail']);
+//                }
+//
+//                return FileStorageService::upload($image);
+//            },
+//        );
+//    }
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
     }
 }
