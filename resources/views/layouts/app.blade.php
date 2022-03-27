@@ -53,6 +53,22 @@
                                 </li>
                             @endif
                         @else
+                            @if (is_admin(Auth::user()))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('admin.home') }}">{{ __('Admin') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </li>
+                            @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -75,6 +91,9 @@
                 </div>
             </div>
         </nav>
+        @if(Auth::check() && is_admin(Auth::user()) && (Request::is('admin/*') || Request::is('admin')))
+            @include('navigation.admin-menu')
+        @endif
 
         <main class="py-4">
             <div class="container">

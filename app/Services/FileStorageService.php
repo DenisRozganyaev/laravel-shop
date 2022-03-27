@@ -3,11 +3,12 @@
 namespace App\Services;
 
 use App\Services\Contracts\FileStorageServiceInterface;
+use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class FileStorageService implements FileStorageServiceInterface
+class FileStorageService extends Facade implements FileStorageServiceInterface
 {
     public static function upload($file): string
     {
@@ -37,5 +38,10 @@ class FileStorageService implements FileStorageServiceInterface
     public static function remove($file)
     {
         Storage::delete($file);
+    }
+
+    protected static function getFacadeAccessor()
+    {
+        return FileStorageService::class;
     }
 }

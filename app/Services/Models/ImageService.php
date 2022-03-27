@@ -11,7 +11,7 @@ class ImageService implements ImageServiceInterface
     {
         if (!method_exists($model, $methodName)) {
             $className = $model::class;
-            throw new \Exception("${$className} doesn't have ${$methodName}");
+            throw new \Exception("$className doesn't have $methodName");
         }
 
         if (!empty($images)) {

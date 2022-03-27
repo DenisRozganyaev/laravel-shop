@@ -37,20 +37,6 @@ class Product extends Model
         $this->attributes['thumbnail'] = FileStorageService::upload($image);
     }
 
-//    public function thumbnail(): Attribute
-//    {
-//        return new Attribute(
-//            set: function($image) {
-//                dd($this->attributes['thumbnail']);
-//                if (!empty($this->attributes['thumbnail'])) {
-//                    FileStorageService::remove($this->attributes['thumbnail']);
-//                }
-//
-//                return FileStorageService::upload($image);
-//            },
-//        );
-//    }
-
     public function images()
     {
         return $this->morphMany(Image::class, 'imageable');
