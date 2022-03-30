@@ -12,7 +12,15 @@
                 <div class="album py-5 bg-light">
                     <div class="container">
                         <div class="row">
-                            @each('products.parts.product_view', $products, 'product')
+                            @if($products->count() === 0)
+                                <div class="col-12">
+                                    <h1 class="text-center">
+                                        There are no products yet
+                                    </h1>
+                                </div>
+                            @else
+                                @each('products.parts.product_view', $products, 'product')
+                            @endif
                         </div>
                     </div>
                 </div>

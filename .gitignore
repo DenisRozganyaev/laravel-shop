@@ -1,6 +1,7 @@
 /node_modules
 /public/hot
 /public/storage
+/public/js
 /storage/*.key
 /vendor
 .env
@@ -15,3 +16,5 @@ yarn-error.log
 /.vscode
 _ide_helper.php
 _ide_helper_facades.php
+.DS_Store
+laradock

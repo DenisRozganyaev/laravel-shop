@@ -41,4 +41,17 @@ class Product extends Model
     {
         return $this->morphMany(Image::class, 'imageable');
     }
+
+    public function endPrice() : Attribute
+    {
+        return new Attribute(
+            get: function() {
+                $price = is_null($this->attributes['discount'])
+                    ? $this->attributes['price']
+                    : ($this->attributes['price'] - ($this->attributes['price'] * ($this->attributes['discount'] / 100)));
+
+                return $price < 0 ? 0 : round($price, 2);
+            }
+        );
+    }
 }
