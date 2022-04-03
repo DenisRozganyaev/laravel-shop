@@ -24,7 +24,7 @@
             <div>
                 <p>Product Category: <b> @include('categories.parts.category_view', ['category' => $product->category])</b></p>
             </div>
-            @auth
+{{--            @auth--}}
                 @if($product->in_stock > 0)
                     <hr>
                     <div>
@@ -92,7 +92,7 @@
 {{--                    <a href="{{ route('wishlist.add', $product) }}"--}}
 {{--                       class="btn btn-success">{{ __('Add to Wish List') }}</a>--}}
 {{--                @endif--}}
-            @endauth
+{{--            @endauth--}}
         </div>
     </div>
     <hr>

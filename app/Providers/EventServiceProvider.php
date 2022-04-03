@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Listeners\UserLoginEventSubscriber;
+use App\Listeners\UserLogoutEventSubscriber;
 use App\Models\Image;
 use App\Models\Product;
 use App\Observers\ImageObserver;
@@ -21,6 +23,12 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        'Illuminate\Auth\Events\Login' => [
+            UserLoginEventSubscriber::class
+        ],
+        'Illuminate\Auth\Events\Logout' => [
+            UserLogoutEventSubscriber::class
         ],
     ];
 

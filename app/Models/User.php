@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -62,6 +63,7 @@ class User extends Authenticatable
         'birthdate',
         'email',
         'password',
+        'balance'
     ];
 
     /**
@@ -85,7 +87,18 @@ class User extends Authenticatable
 
     public function role()
     {
-        // because role_id in users table
         return $this->belongsTo(\App\Models\Role::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function instanceCartName(): Attribute
+    {
+        return new Attribute(
+            get: fn() => $this->attributes['id'] . '_' . $this->attributes['email']
+        );
     }
 }

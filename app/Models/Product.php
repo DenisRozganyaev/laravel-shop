@@ -28,6 +28,16 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
+    }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
+    }
+
     public function setThumbnailAttribute($image)
     {
         if (!empty($this->attributes['thumbnail'])) {
@@ -35,11 +45,6 @@ class Product extends Model
         }
 
         $this->attributes['thumbnail'] = FileStorageService::upload($image);
-    }
-
-    public function images()
-    {
-        return $this->morphMany(Image::class, 'imageable');
     }
 
     public function endPrice() : Attribute

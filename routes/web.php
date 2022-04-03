@@ -36,16 +36,18 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
 Route::prefix('account')->name('account.')->middleware(['auth'])->group(function() {
     Route::get('/', [UserController::class, 'index'])->name('main');
-    Route::get('{user}/edit', [UserController::class, 'edit'])->middleware('can:update,user')->name('edit');
-    Route::put('{user}', [UserController::class, 'update'])->middleware('can:update,user')->name('update');
+    Route::get('{user}/edit', [UserController::class, 'edit'])->middleware('can:view,user')->name('edit');
+    Route::put('{user}', [UserController::class, 'update'])->name('update'); // TODO: ->middleware('can:update,user')
 });
 
 Route::resource('categories', CategoriesController::class)->only(['show', 'index']);
 Route::resource('products', \App\Http\Controllers\ProductsController::class)->only(['show', 'index']);
+Route::get('cart', [CartController::class, 'index'])->name('cart');
+Route::post('cart/{product}', [CartController::class, 'add'])->name('cart.add');
+Route::delete('cart', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('cart/{product}/count', [CartController::class, 'countUpdate'])->name('cart.count.update');
 
 Route::middleware('auth')->group(function() {
-   Route::get('cart', [CartController::class, 'index'])->name('cart');
-   Route::post('cart/{product}', [CartController::class, 'add'])->name('cart.add');
-   Route::delete('cart', [CartController::class, 'remove'])->name('cart.remove');
-   Route::post('cart/{product}/count', [CartController::class, 'countUpdate'])->name('cart.count.update');
+    Route::get('checkout', \App\Http\Controllers\CheckoutController::class)->name('checkout');
+    Route::post('order', \App\Http\Controllers\OrdersController::class)->name('order.create');
 });
