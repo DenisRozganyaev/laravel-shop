@@ -6,5 +6,5 @@ use App\Models\Order;
 
 interface IOrderRepository
 {
-    public function create(array $request): Order;
+    public function create(array $request): Order|bool;
 }

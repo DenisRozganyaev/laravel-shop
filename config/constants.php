@@ -4,6 +4,12 @@ return [
         'roles' => [
             'admin' => 'Admin',
             'customer' => 'Customer'
+        ],
+        'order_statuses' => [
+            'in_process' => 'In Process',
+            'paid' => 'Paid',
+            'completed' => 'Completed',
+            'cancel' => 'Cancel'
         ]
     ]
 ];

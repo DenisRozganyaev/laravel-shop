@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         Category::factory(5)->create()->each(function($category) {
             Product::factory(3, ['category_id' => $category->id])->create();
         });
+        $this->call(OrderStatusSeeder::class);
 
     }
 }
