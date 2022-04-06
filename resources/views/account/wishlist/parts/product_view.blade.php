@@ -8,11 +8,11 @@
         <a href="{{ route('products.show', $row->id) }}"><strong>{{ $row->name }}</strong></a>
     </td>
     <td>{{ $row->price }}$</td>
+    <td>{{ $row->model->available ? 'Available' : 'Not Available' }}</td>
     <td>
         <form action="{{ route('wishlist.delete', $row->id) }}" method="POST">
             @csrf
             @method('DELETE')
-            <input type="hidden" name="rowId" value="{{ $row->rowId }}">
             <input type="submit" class="btn btn-danger" value="Remove">
         </form>
     </td>

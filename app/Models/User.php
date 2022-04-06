@@ -95,10 +95,31 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function wishes()
+    {
+        return $this->belongsToMany(
+            Product::class,
+            'wish_list',
+            'user_id',
+            'product_id'
+        );
+    }
+
     public function instanceCartName(): Attribute
     {
         return new Attribute(
             get: fn() => $this->attributes['id'] . '_' . $this->attributes['email']
         );
     }
+
+    public function addToWish(Product $product)
+    {
+        $this->wishes()->attach($product);
+    }
+
+    public function removeFromWish(Product $product)
+    {
+        $this->wishes()->detach($product);
+    }
+
 }

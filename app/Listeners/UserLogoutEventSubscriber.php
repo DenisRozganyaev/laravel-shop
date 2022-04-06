@@ -19,5 +19,8 @@ class UserLogoutEventSubscriber
         if (Cart::instance('cart')->count() > 0) {
             Cart::instance('cart')->store($event->user->instance_cart_name);
         }
+        if (Cart::instance('wishlist')->count() > 0) {
+            Cart::instance('wishlist')->store($event->user->instance_cart_name);
+        }
     }
 }

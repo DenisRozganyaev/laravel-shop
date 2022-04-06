@@ -21,6 +21,7 @@
                             <th></th>
                             <th>Product</th>
                             <th>Price</th>
+                            <th>Available</th>
                         </tr>
                         </thead>
 

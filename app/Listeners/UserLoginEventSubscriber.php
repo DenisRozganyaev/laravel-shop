@@ -17,5 +17,6 @@ class UserLoginEventSubscriber
     public function handle($event)
     {
         Cart::instance('cart')->restore($event->user->instance_cart_name);
+        Cart::instance('wishlist')->restore($event->user->instance_cart_name);
     }
 }
