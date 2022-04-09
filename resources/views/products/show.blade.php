@@ -98,17 +98,46 @@
     </div>
     <hr>
     <div class="row-fluid">
-        <div class="col-md-10 text-center">
+        <div class="col-12 d-flex flex-column justify-content-center align-items-center text-center">
             <h4>Description: </h4>
             <p>{{ $product->description }}</p>
         </div>
     </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h4>Comments</h4>
+            </div>
+            <br>
+            <div class="row">
+                @foreach($product->comments as $comment)
+                    @include('comments/_single_comment', compact('comment', 'product'))
+                @endforeach
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 d-flex flex-column justify-content-center align-items-center">
+                <br>
+                <form method="post" action="{{ route('comment.add') }}" style="width: 50%;">
+                    @csrf
+                    <div class="form-group">
+                        <input type="text" name="comment_body" class="form-control" />
+                        <input type="hidden" name="model_class" value="{{ $product::class }}" />
+                        <input type="hidden" name="model_id" value="{{ $product->id }}" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-warning" value="Add Comment" />
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     <script>
         $(function(){
-            $('#addStar').change('.star', function(e) {
-                $(this).submit();
-            });
         });
     </script>
 @endsection
+@push('scripts')
+    <script src="{{ asset('js/product-actions.js') }}" type="text/javascript"></script>
+@endpush
