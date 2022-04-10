@@ -102,6 +102,26 @@
             <p>{{ $product->description }}</p>
         </div>
     </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h4>Comments</h4>
+            </div>
+            <br>
+            <div class="row">
+                @foreach($product->comments as $comment)
+                    @include('comments/_single_comment', ['comment' => $comment, 'model' => $product])
+                @endforeach
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 d-flex flex-column justify-content-center align-items-center">
+                <br>
+                @include('comments/_form', ['model' => $product])
+            </div>
+        </div>
+    </div>
 @endsection
 @push('scripts')
     <script src="{{ asset('js/product-actions.js') }}" type="text/javascript"></script>

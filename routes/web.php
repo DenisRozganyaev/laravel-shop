@@ -64,4 +64,7 @@ Route::middleware('auth')->group(function() {
     Route::delete('wishlist/{product}/delete', [WishListController::class, 'delete'])->name('wishlist.delete');
 
     Route::post('rating/{product}/add', [\App\Http\Controllers\RatingController::class, 'add'])->name('rating.add');
+
+    Route::post('comment/store', [\App\Http\Controllers\CommentsController::class, 'store'])->name('comment.add');
+    Route::post('comment/reply', [\App\Http\Controllers\CommentsController::class, 'reply'])->name('comment.reply');
 });

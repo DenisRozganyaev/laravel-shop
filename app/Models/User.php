@@ -112,6 +112,13 @@ class User extends Authenticatable
         );
     }
 
+    public function fullName(): Attribute
+    {
+        return new Attribute(
+            get: fn() => $this->attributes['name'] . ' ' . $this->attributes['surname']
+        );
+    }
+
     public function addToWish(Product $product)
     {
         $this->wishes()->attach($product);

@@ -2,11 +2,17 @@
 
 namespace App\Providers;
 
+use App\Repositories\CommentsRepository;
+use App\Repositories\Contracts\ICommentsRepository;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    public $bindings = [
+        ICommentsRepository::class => CommentsRepository::class,
+    ];
+
     /**
      * Register any application services.
      *
