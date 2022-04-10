@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('Home page') }}</div>
+                    <div class="card-header">{{ __('home.title', ['name' => 'Denys']) }}</div>
 
                     <div class="col-md-12">
                         <div class="album py-5 bg-light">

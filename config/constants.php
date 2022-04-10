@@ -11,5 +11,11 @@ return [
             'completed' => 'Completed',
             'cancel' => 'Cancel'
         ]
+    ],
+    'locales' => [
+        'available' => [
+            'English' => 'en',
+            'Ukrainian' => 'ua'
+        ]
     ]
 ];

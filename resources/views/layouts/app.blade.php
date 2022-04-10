@@ -48,6 +48,10 @@
                 <ul class="navbar-nav ms-auto">
                     <!-- Authentication Links -->
                     <li class="nav-item">
+                        @include('navigation.parts.language_switcher')
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link disabled">|</a></li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('cart') }}">
                             {{ __('Cart') }} @if(Cart::instance('cart')->count() > 0) -
                             <strong>{{ Cart::instance('cart')->count() }}</strong> @endif

@@ -24,6 +24,13 @@ Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::get('language/{locale}', function($locale) {
+    app()->setLocale($locale);
+    session()->put('locale', $locale);
+
+    return redirect()->back();
+})->name('language.switch');
+
 Route::delete('ajax/images/{image_id}', \App\Http\Controllers\Ajax\RemoveImageController::class)
     ->middleware(['auth', 'admin'])
     ->name('ajax.products.images.delete');
