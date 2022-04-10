@@ -1,5 +1,4 @@
 @extends('layouts.app')
-{{--@inject('wishlist', 'App\Services\WishListService')--}}
 
 @section('content')
     <div class="row justify-content-center">
@@ -19,7 +18,7 @@
             <p>Price: {{ $product->end_price }}$</p>
             <p>SKU: {{ $product->SKU }}</p>
             <p>In stock: {{ $product->in_stock }}</p>
-{{--            <p>Rating: {{ round($product->averageRating(), 2) }}</p>--}}
+            <p>Rating: {{ round($product->averageRating(), 2) }}</p>
             <hr>
             <div>
                 <p>Product Category: <b> @include('categories.parts.category_view', ['category' => $product->category])</b></p>
@@ -47,12 +46,12 @@
                 </div>
             @endif
             @auth
-                <form class="form-horizontal poststars" action="" id="addStar"
+                <form class="form-horizontal poststars" action="{{ route('rating.add', $product) }}" id="addStar"
                       method="POST">
                     @csrf
                     <div class="form-group required">
-                        <div class="col-sm-12 stars">
-                            @if(!is_null($product->getUserRating()))
+                        <div class="col-sm-3 stars">
+                            @if(!is_null($userRating))
                                 @for($i = 5; $i >= 1; $i--)
                                     <input class="star star-{{$i}}"
                                            value="{{$i}}"
@@ -60,7 +59,7 @@
                                            type="radio"
                                            name="star"
                                         {{
-                                        $i == $product->getUserRating()->rating
+                                        $i == $userRating->rating
                                         ? 'checked'
                                         : ''
                                         }}
@@ -103,12 +102,7 @@
             <p>{{ $product->description }}</p>
         </div>
     </div>
-    </div>
-    <script>
-        $(function(){
-            $('#addStar').change('.star', function(e) {
-                $(this).submit();
-            });
-        });
-    </script>
 @endsection
+@push('scripts')
+    <script src="{{ asset('js/product-actions.js') }}" type="text/javascript"></script>
+@endpush

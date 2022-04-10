@@ -55,4 +55,6 @@ Route::middleware('auth')->group(function() {
 
     Route::get('wishlist/{product}/add', [WishListController::class, 'add'])->name('wishlist.add');
     Route::delete('wishlist/{product}/delete', [WishListController::class, 'delete'])->name('wishlist.delete');
+
+    Route::post('rating/{product}/add', [\App\Http\Controllers\RatingController::class, 'add'])->name('rating.add');
 });
