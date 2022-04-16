@@ -7,15 +7,9 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-{{--                <li class="nav-item dropdown">--}}
-{{--                    <a id="adminDropdownOrders" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>--}}
-{{--                        {{ __('Orders') }} <span class="caret"></span>--}}
-{{--                    </a>--}}
-{{--                    <div class="dropdown-menu dropdown-menu-left" aria-labelledby="adminDropdownOrders">--}}
-{{--                        <a class="dropdown-item" href="{{ route('admin.orders') }}">{{ __('Orders List') }}</a>--}}
-{{--                        <a class="dropdown-item" href="{{ route('admin.orders') }}">{{ __('New Order') }}</a>--}}
-{{--                    </div>--}}
-{{--                </li>--}}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.orders') }}">{{ __('Orders List') }}</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.products.index') }}">{{ __('Products') }}</a>
                 </li>

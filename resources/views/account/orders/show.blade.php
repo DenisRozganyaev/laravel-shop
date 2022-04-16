@@ -59,7 +59,7 @@
                                     </tr>
                                     </tfoot>
                                 </table>
-                                @if($isCancelAllowed)
+                                @if(!$order->is_completed && !$order->is_canceled)
                                     <form method="POST" class="w-100 text-right"
                                           action="{{ route('account.orders.cancel', $order) }}">
                                         @csrf

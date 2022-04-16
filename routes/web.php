@@ -40,6 +40,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::get('/', BoardController::class)->name('home');
 
     Route::resource('products', ProductsController::class)->except(['show']);
+
+    Route::name('orders')->group(function() {
+        Route::get('orders', [\App\Http\Controllers\Admin\OrdersController::class, 'index']);
+        Route::get('orders/{order}/edit', [\App\Http\Controllers\Admin\OrdersController::class, 'edit'])->name('.edit');
+        Route::put('orders/{order}', [\App\Http\Controllers\Admin\OrdersController::class, 'update'])->name('.update');
+    });
 });
 
 Route::prefix('account')->name('account.')->middleware(['auth'])->group(function() {
@@ -47,6 +53,10 @@ Route::prefix('account')->name('account.')->middleware(['auth'])->group(function
     Route::get('{user}/edit', [UserController::class, 'edit'])->middleware('can:view,user')->name('edit');
     Route::put('{user}', [UserController::class, 'update'])->name('update'); // TODO: ->middleware('can:update,user')
     Route::get('wishlist', \App\Http\Controllers\Account\WishListController::class)->name('wishlist');
+
+    Route::get('orders', [\App\Http\Controllers\Account\OrdersController::class, 'index'])->name('orders.list');
+    Route::get('orders/{order}', [\App\Http\Controllers\Account\OrdersController::class, 'show'])->name('orders.show');
+    Route::post('orders/{order}/cancel', [\App\Http\Controllers\Account\OrdersController::class, 'cancel'])->name('orders.cancel');
 });
 
 Route::resource('categories', CategoriesController::class)->only(['show', 'index']);
