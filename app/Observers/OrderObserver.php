@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Jobs\OrderCreatedNotificationJob;
 use App\Models\Order;
 use App\Models\Role;
+use App\Notifications\Telegram\OrderStatusChangedNotification;
 
 class OrderObserver
 {
@@ -17,6 +18,10 @@ class OrderObserver
 
     public function updated(Order $order)
     {
-        OrderCreatedNotificationJob::dispatch($order->user, $order)->onQueue('email');
+        if ($order->status_id !== $order->getOriginal('status_id')) {
+            $order->notify(
+                (new OrderStatusChangedNotification($order))->onQueue('telegram')
+            );
+        }
     }
 }
