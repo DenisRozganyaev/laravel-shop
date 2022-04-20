@@ -46,6 +46,13 @@ class Order extends Model
         );
     }
 
+    public function inProcess(): Attribute
+    {
+        return new Attribute(
+            get: fn() => $this->status->name === config('constants.db.order_statuses.in_process')
+        );
+    }
+
     public function isCanceled(): Attribute
     {
         return new Attribute(
