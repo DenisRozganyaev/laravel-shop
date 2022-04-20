@@ -8,6 +8,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WishListController;
+use App\Models\Order;
+use App\Services\Contracts\IInvoicesService;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -80,4 +82,7 @@ Route::middleware('auth')->group(function() {
 
     Route::post('comment/store', [\App\Http\Controllers\CommentsController::class, 'store'])->name('comment.add');
     Route::post('comment/reply', [\App\Http\Controllers\CommentsController::class, 'reply'])->name('comment.reply');
+
+    Route::get('/order/{order}/invoice', [\App\Http\Controllers\InvoicesController::class, 'download'])
+        ->name('orders.generate.invoice');
 });

@@ -22,7 +22,6 @@ class OrderCreatedNotificationJob implements ShouldQueue
      * @return void
      */
     public function __construct(
-        protected User $user,
         protected Order $order
     )
     {}
@@ -34,6 +33,6 @@ class OrderCreatedNotificationJob implements ShouldQueue
      */
     public function handle()
     {
-        $this->order->notify(new OrderCreatedNotification($this->user, $this->order->id));
+        $this->order->notify(new OrderCreatedNotification);
     }
 }
