@@ -22,6 +22,8 @@ class Order extends Model
         "city",
         "address",
         "total",
+        "vendor_order_id",
+        "transaction_id"
     ];
 
     public function user()
@@ -37,6 +39,11 @@ class Order extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class)->withPivot(['quantity', 'single_price']);
+    }
+
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class);
     }
 
     public function isCompleted(): Attribute
