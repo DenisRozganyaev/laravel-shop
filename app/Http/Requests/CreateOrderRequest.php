@@ -34,4 +34,13 @@ class CreateOrderRequest extends FormRequest
             'address' => ['required', 'string', 'min:2', 'max:50'],
         ];
     }
+
+    public function all($keys = null)
+    {
+        if (empty($keys)) {
+            return parent::json()->all();
+        }
+
+        return collect(parent::json()->all())->only($keys)->toArray();
+    }
 }

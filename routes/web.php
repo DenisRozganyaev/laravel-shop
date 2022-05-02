@@ -86,3 +86,8 @@ Route::middleware('auth')->group(function() {
     Route::get('/order/{order}/invoice', [\App\Http\Controllers\InvoicesController::class, 'download'])
         ->name('orders.generate.invoice');
 });
+
+Route::namespace('Payments')->prefix('paypal')->group(function() {
+    Route::post('order/create', [\App\Http\Controllers\Payments\PaypalPaymentController::class, 'create']);
+    Route::post('order/{orderId}/capture', [\App\Http\Controllers\Payments\PaypalPaymentController::class, 'capture']);
+});
