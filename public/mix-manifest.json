@@ -2,6 +2,8 @@
     "/js/app.js": "/js/app.js",
     "/js/images-preview.js": "/js/images-preview.js",
     "/js/images-actions.js": "/js/images-actions.js",
+    "/js/iziToast.js": "/js/iziToast.js",
     "/js/paypal-payments.js": "/js/paypal-payments.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/css/iziToast.css": "/css/iziToast.css"
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WishListController;
 use App\Models\Order;
 use App\Services\Contracts\IInvoicesService;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -87,7 +88,9 @@ Route::middleware('auth')->group(function() {
         ->name('orders.generate.invoice');
 });
 
-Route::namespace('Payments')->prefix('paypal')->group(function() {
+Route::prefix('paypal')->group(function() {
     Route::post('order/create', [\App\Http\Controllers\Payments\PaypalPaymentController::class, 'create']);
     Route::post('order/{orderId}/capture', [\App\Http\Controllers\Payments\PaypalPaymentController::class, 'capture']);
+    Route::get('order/{order}/thankyou', [\App\Http\Controllers\Payments\PaypalPaymentController::class, 'thankYou'])
+        ->middleware(['auth', 'can:view,order']); //, 'can:view,thankYou']);
 });

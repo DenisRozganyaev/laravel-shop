@@ -14,6 +14,7 @@ class InvoicesService implements IInvoicesService
 
     public function generate(Order $order): Invoice
     {
+        $items = [];
         $customer = new Buyer([
            'name' => $order->name . ' ' . $order->surname,
            'custom_fields' => [
@@ -35,10 +36,10 @@ class InvoicesService implements IInvoicesService
 
         $invoice = InvoiceFacade::make()
             ->status($order->status->name)
-            ->serialNumberFormat($order->id)
+            ->serialNumberFormat($order->invoice_id)
             ->buyer($customer)
             ->taxRate(config('cart.tax'))
-            ->filename('Invoice_' . time() . '_' . $order->user->id . '_' . $order->id)
+            ->filename($order->invoice_id)
             ->logo('https://itc.ua/wp-content/uploads/2022/03/rozetka.png')
             ->addItems($items);
 

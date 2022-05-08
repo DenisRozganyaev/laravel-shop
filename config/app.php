@@ -233,4 +233,5 @@ return [
         'FileStorage' => App\Services\FileStorageService::class,
     ],
 
+    'api_latest' => '2'
 ];

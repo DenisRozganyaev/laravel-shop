@@ -2,7 +2,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.0",
@@ -20,7 +23,8 @@
         "predis/predis": "^1.1",
         "pschocke/laravel-telegram-login-widget": "^2.0",
         "srmklive/paypal": "~3.0",
-        "willvincent/laravel-rateable": "^3.0"
+        "willvincent/laravel-rateable": "^3.0",
+        "ext-pdo": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.12",
@@ -39,7 +43,8 @@
         },
         "files": [
             "app/Helpers/is_admin.php",
-            "app/Helpers/is_user_followed.php"
+            "app/Helpers/is_user_followed.php",
+            "app/Helpers/parser.php"
         ]
     },
     "autoload-dev": {

@@ -14,6 +14,8 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/images-preview.js', 'public/js')
     .js('resources/js/images-actions.js', 'public/js')
+    // .js('resources/js/iziToast.js', 'public/js')
     .js('resources/js/paypal-payments.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
+    .css('resources/css/iziToast.css', 'public/css')
     .sourceMaps();

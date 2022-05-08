@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Events\OrderCreated;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\Transaction;

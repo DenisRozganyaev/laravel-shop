@@ -23,7 +23,8 @@ class Order extends Model
         "address",
         "total",
         "vendor_order_id",
-        "transaction_id"
+        "transaction_id",
+        "invoice_id"
     ];
 
     public function user()

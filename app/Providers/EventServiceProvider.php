@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\OrderCreated;
+use App\Listeners\OrderCreatedNotification;
 use App\Listeners\UserLoginEventSubscriber;
 use App\Listeners\UserLogoutEventSubscriber;
 use App\Models\Image;
@@ -32,6 +34,9 @@ class EventServiceProvider extends ServiceProvider
         'Illuminate\Auth\Events\Logout' => [
             UserLogoutEventSubscriber::class
         ],
+        OrderCreated::class => [
+            OrderCreatedNotification::class
+        ]
     ];
 
     protected $observers = [

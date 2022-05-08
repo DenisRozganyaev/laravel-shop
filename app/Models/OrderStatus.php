@@ -20,4 +20,9 @@ class OrderStatus extends Model
     {
         return $query->where('name', config('constants.db.order_statuses.in_process'));
     }
+
+    public function scopePaidStatus($query)
+    {
+        return $query->where('name', config('constants.db.order_statuses.paid'));
+    }
 }

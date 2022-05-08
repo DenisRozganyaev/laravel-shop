@@ -3,13 +3,14 @@
 namespace App\Notifications\Telegram;
 
 use App\Models\Order;
+use App\Models\OrderStatus;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Telegram\TelegramMessage;
 
-class OrderStatusChangedNotification extends Notification implements ShouldQueue
+class OrderStatusChangedNotification extends Notification
 {
     use Queueable;
 
@@ -36,10 +37,12 @@ class OrderStatusChangedNotification extends Notification implements ShouldQueue
 
     public function toTelegram($notifiable)
     {
+        logs()->info($notifiable);
         if (!$this->order->user->telegram_id) {
             return;
         }
 
+        logs()->info($this->order);
         return TelegramMessage::create()
             ->to($this->order->user->telegram_id)
             ->content(

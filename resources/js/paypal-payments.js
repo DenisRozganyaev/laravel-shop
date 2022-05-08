@@ -79,7 +79,6 @@ paypal.Buttons({
                 }
             }
         }).then(function(order) {
-            console.log(order)
             return order.vendor_order_id;
         }).catch(function(error) {
             return;
@@ -117,21 +116,19 @@ paypal.Buttons({
                         iziToastOpts['message'] = errorDetail.description;
                     }
 
-                    // iziToast.error(iziToastOpts);
-                    console.log(iziToastOpts);
+                    iziToast.error(iziToastOpts);
                     return false;
                 }
-
-                console.log({
-                    title: 'Payment process was successfully done!',
-                    position: 'topCenter',
-                    onClosing: () => { window.location.href = `/paypal/order/${orderData.id}/thankyou` }
-                });
-                // iziToast.success({
+                // console.log({
                 //     title: 'Payment process was successfully done!',
                 //     position: 'topCenter',
                 //     onClosing: () => { window.location.href = `/paypal/order/${orderData.id}/thankyou` }
                 // });
+                iziToast.success({
+                    title: 'Payment process was successfully done!',
+                    position: 'topCenter',
+                    onClosing: () => { window.location.href = `/paypal/order/${orderData.orderId}/thankyou` }
+                });
             });
         }
     }
