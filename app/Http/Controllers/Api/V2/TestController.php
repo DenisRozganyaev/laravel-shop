@@ -9,6 +9,6 @@ class TestController extends Controller
 {
     public function __invoke()
     {
-        return response()->json(['name' =>  'v1/' . __CLASS__]);
+        return response()->json(['name' =>  'v2/' . __CLASS__]);
     }
 }

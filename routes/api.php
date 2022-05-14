@@ -20,10 +20,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', \App\Http\Controllers\Api\AuthController::class)->name('login');
 
-Route::middleware(['api', 'api_version:v1'])->prefix('v1')->group(function() {
-    require base_path('routes/api_v1.php');
+Route::middleware(['api', 'auth:sanctum', 'api_version:v1'])->prefix('v1')->group(function() {
+    require base_path('routes/api/api_v1.php');
 });
 
-Route::middleware(['api', 'api_version:v2'])->prefix('v2')->group(function() {
-    require base_path('routes/api_v2.php');
+Route::middleware(['api', 'auth:sanctum', 'api_version:v2'])->prefix('v2')->group(function() {
+    require base_path('routes/api/api_v2.php');
 });
