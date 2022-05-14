@@ -54,6 +54,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
 Route::prefix('account')->name('account.')->middleware(['auth'])->group(function() {
     Route::get('/', [UserController::class, 'index'])->name('main');
+    Route::get('clients', [UserController::class, 'clients'])->name('clients');
     Route::get('{user}/edit', [UserController::class, 'edit'])->middleware('can:view,user')->name('edit');
     Route::put('{user}', [UserController::class, 'update'])->name('update'); // TODO: ->middleware('can:update,user')
     Route::get('wishlist', \App\Http\Controllers\Account\WishListController::class)->name('wishlist');

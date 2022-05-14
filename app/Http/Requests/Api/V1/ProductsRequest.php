@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ProductsRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class ProductsRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->check();
+        return Auth::guard('api')->check();
     }
 
     /**

@@ -14,6 +14,12 @@ class UserController extends Controller
         return view('account/index', ['user' => auth()->user()]);
     }
 
+    public function clients(Request $request)
+    {
+        $clients = $request->user()->clients;
+        return view('account/clients', ['clients' => $clients]);
+    }
+
     public function edit(User $user)
     {
         return view('account/users/edit', compact('user'));
