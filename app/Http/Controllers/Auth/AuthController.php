@@ -7,6 +7,8 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -73,5 +75,59 @@ class AuthController extends Controller
     public function user(Request $request)
     {
         return response()->json($request->user());
+    }
+
+    /* ----------------- get both access_token and refresh_token ---------------- */
+    public function loginGrant(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        $baseUrl = url('/');
+        $response = Http::post("{$baseUrl}/oauth/token", [
+            'username' => $request->email,
+            'password' => $request->password,
+            'client_id' => config('passport.password_grant_client.id'),
+            'client_secret' => config('passport.password_grant_client.secret'),
+            'grant_type' => 'password'
+        ]);
+
+        $result = json_decode($response->getBody(), true);
+        if (!$response->ok()) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        return response()->json($result);
+    }
+
+    /* -------------------------- refresh access_token -------------------------- */
+    public function refreshToken(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'refresh_token' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        $baseUrl = url('/');
+        $response = Http::post("{$baseUrl}/oauth/token", [
+            'refresh_token' => $request->refresh_token,
+            'client_id' => config('passport.password_grant_client.id'),
+            'client_secret' => config('passport.password_grant_client.secret'),
+            'grant_type' => 'refresh_token'
+        ]);
+
+        $result = json_decode($response->getBody(), true);
+        if (!$response->ok()) {
+            return response()->json(['error' => $result['error_description']], 401);
+        }
+        return response()->json($result);
     }
 }

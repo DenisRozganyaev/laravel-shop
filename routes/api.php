@@ -22,6 +22,9 @@ Route::group(["prefix" => "auth"], function () {
         Route::get("logout", [AuthController::class, 'logout']);
         Route::get("user", [AuthController::class, 'user']);
     });
+
+    Route::post('login_grant',  [AuthController::class, 'loginGrant']);
+    Route::post('refresh',      [AuthController::class, 'refreshToken']);
 });
 
 //Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

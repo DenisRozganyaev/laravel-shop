@@ -24,15 +24,31 @@
                     @csrf
                     <div>
                         <label for="name">Name</label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Client Name" />
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Client Name"/>
                     </div>
                     <div>
                         <label for="redirect">Redirect</label>
-                        <input type="text" name="redirect" id="redirect" class="form-control" placeholder="http://smth.com/callback" />
+                        <input type="text" name="redirect" id="redirect" class="form-control"
+                               placeholder="http://smth.com/callback"/>
                     </div>
                     <input type="submit" class="btn btn-primary" value="Create Client">
                 </form>
             </div>
         </div>
     </div>
+
+    {{--                                    <span class="block"><b>ID: </b>{{ $client->id }}</span>--}}
+    {{--                                    <span class="block"><b>Name: </b>{{ $client->name }}</span>--}}
+    {{--                                    <span class="block"><b>Secret: </b>{{ $client->secret }}</span>--}}
+    {{--                                    <span class="block"><b>Provider: </b>--}}
+    {{--                                        @if($client->provider == null )--}}
+    {{--                                            Null--}}
+    {{--                                        @else--}}
+    {{--                                            {{ $client->provider }})--}}
+    {{--                                        @endif--}}
+    {{--                                    </span>--}}
+    {{--                                    <span class="block"><b>Redirect: </b>{{ $client->redirect }}</span>--}}
+    {{--                                    <span class="block"><b>Access: </b>{{ $client->personal_access_client }}</span>--}}
+    {{--                                    <span class="block"><b>CLient Password: </b>{{ $client->password_client }}</span>--}}
+    {{--                                    <span class="block"><b>Revoked: </b>{{ $client->revoked }}</span>--}}
 @endsection
