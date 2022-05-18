@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\V1;
+namespace App\Http\Requests\Api\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
-class ProductsRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +13,7 @@ class ProductsRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::guard('api')->check();
+        return true;
     }
 
     /**
@@ -25,8 +24,8 @@ class ProductsRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_id' => 'numeric',
-            'in_stock' => 'numeric'
+            'email' => ['required', 'email'],
+            'password' => ['required', 'string']
         ];
     }
 }

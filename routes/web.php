@@ -8,9 +8,6 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WishListController;
-use App\Models\Order;
-use App\Services\Contracts\IInvoicesService;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,9 +23,32 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('callback', function (\Illuminate\Http\Request $request) {
+    $state = $request->session()->pull('state');
+
+    throw_unless(
+        strlen($state) > 0 && $state === $request->state,
+        InvalidArgumentException::class
+    );
+
+    $response = Http::asForm()->post(route('passport.token'), [
+        'grant_type' => 'authorization_code',
+        'client_id' => 5,
+        'client_secret' => 'AguE8bWpzD3uPtd70THGx1X5vg2IBl8kA7FFYDbX',
+        'redirect_uri' => 'http://hillel.local/token/callback',
+        'code' => $request->code,
+    ]);
+
+    return $response->json();
+});
+
+Route::get('token/callback', function (\Illuminate\Http\Request $request) {
+    dd($request);
+});
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('language/{locale}', function($locale) {
+Route::get('language/{locale}', function ($locale) {
     app()->setLocale($locale);
     session()->put('locale', $locale);
 
@@ -40,20 +60,22 @@ Route::delete('ajax/images/{image_id}', \App\Http\Controllers\Ajax\RemoveImageCo
     ->name('ajax.products.images.delete');
 
 // localhost/admin/.... route(admin.products)
-Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function() {
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/', BoardController::class)->name('home');
 
     Route::resource('products', ProductsController::class)->except(['show']);
 
-    Route::name('orders')->group(function() {
+    Route::name('orders')->group(function () {
         Route::get('orders', [\App\Http\Controllers\Admin\OrdersController::class, 'index']);
         Route::get('orders/{order}/edit', [\App\Http\Controllers\Admin\OrdersController::class, 'edit'])->name('.edit');
         Route::put('orders/{order}', [\App\Http\Controllers\Admin\OrdersController::class, 'update'])->name('.update');
     });
 });
 
-Route::prefix('account')->name('account.')->middleware(['auth'])->group(function() {
+Route::prefix('account')->name('account.')->middleware(['auth'])->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('main');
+    Route::get('clients', [UserController::class, 'clients'])->name('clients');
+    Route::get('authorize/{client}', [UserController::class, 'oauthAuthorize'])->name('authorize');
     Route::get('{user}/edit', [UserController::class, 'edit'])->middleware('can:view,user')->name('edit');
     Route::put('{user}', [UserController::class, 'update'])->name('update'); // TODO: ->middleware('can:update,user')
     Route::get('wishlist', \App\Http\Controllers\Account\WishListController::class)->name('wishlist');
@@ -72,7 +94,7 @@ Route::post('cart/{product}', [CartController::class, 'add'])->name('cart.add');
 Route::delete('cart', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('cart/{product}/count', [CartController::class, 'countUpdate'])->name('cart.count.update');
 
-Route::middleware('auth')->group(function() {
+Route::middleware('auth')->group(function () {
     Route::get('checkout', \App\Http\Controllers\CheckoutController::class)->name('checkout');
     Route::post('order', \App\Http\Controllers\OrdersController::class)->name('order.create');
 
@@ -88,7 +110,7 @@ Route::middleware('auth')->group(function() {
         ->name('orders.generate.invoice');
 });
 
-Route::prefix('paypal')->group(function() {
+Route::prefix('paypal')->group(function () {
     Route::post('order/create', [\App\Http\Controllers\Payments\PaypalPaymentController::class, 'create']);
     Route::post('order/{orderId}/capture', [\App\Http\Controllers\Payments\PaypalPaymentController::class, 'capture']);
     Route::get('order/{order}/thankyou', [\App\Http\Controllers\Payments\PaypalPaymentController::class, 'thankYou'])
