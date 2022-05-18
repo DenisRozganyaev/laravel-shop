@@ -124,5 +124,5 @@
     </div>
 @endsection
 @push('scripts')
-    <script src="{{ asset('js/product-actions.js') }}" type="text/javascript"></script>
+    <script src="{{ h_secure_asset('js/product-actions.js') }}" type="text/javascript"></script>
 @endpush

@@ -175,7 +175,7 @@
     </div>
 @endsection
 @push('scripts')
-    <script src="{{ asset('js/images-preview.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/images-actions.js') }}" type="text/javascript"></script>
+    <script src="{{ h_secure_asset('js/images-preview.js') }}" type="text/javascript"></script>
+    <script src="{{ h_secure_asset('js/images-actions.js') }}" type="text/javascript"></script>
 @endpush
 
