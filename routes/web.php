@@ -33,17 +33,13 @@ Route::get('callback', function (\Illuminate\Http\Request $request) {
 
     $response = Http::asForm()->post(route('passport.token'), [
         'grant_type' => 'authorization_code',
-        'client_id' => 5,
-        'client_secret' => 'AguE8bWpzD3uPtd70THGx1X5vg2IBl8kA7FFYDbX',
-        'redirect_uri' => 'http://hillel.local/token/callback',
+        'client_id' => 9,
+        'client_secret' => 'u5nHUZq3noyyoq1rfQX2RRuRM9gAPy8ihIXXYQQN',
+        'redirect_uri' => 'http://hillel.local/callback',
         'code' => $request->code,
     ]);
 
     return $response->json();
-});
-
-Route::get('token/callback', function (\Illuminate\Http\Request $request) {
-    dd($request);
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

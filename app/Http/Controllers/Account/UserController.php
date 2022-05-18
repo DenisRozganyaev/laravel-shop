@@ -36,12 +36,14 @@ class UserController extends Controller
 
     public function oauthAuthorize(Request $request, Client $client)
     {
+        $request->session()->put('state', $state = Str::random(40));
+
         $query = http_build_query([
             'client_id' => $client->id,
             'redirect_uri' => $client->redirect,
             'response_type' => 'code',
             'scope' => '',
-            'state' => $client->secret,
+            'state' => $state,
         ]);
 
         return redirect('http://hillel.local/oauth/authorize?' . $query);
