@@ -127,7 +127,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     @if(Storage::has($product->thumbnail))
-                                        <img src="{{ Storage::url($product->thumbnail) }}" class="card-img-top" style="max-width: 80%; margin: 0 auto; display: block;">
+                                        <img src="{{ Storage::disk('s3')->url($product->thumbnail) }}" class="card-img-top" style="max-width: 80%; margin: 0 auto; display: block;">
                                     @endif
                                 </div>
                                 <div class="col-md-6">

@@ -17,3 +17,8 @@ _ide_helper.php
 _ide_helper_facades.php
 .DS_Store
 laradock
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

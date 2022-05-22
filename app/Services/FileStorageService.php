@@ -31,6 +31,7 @@ class FileStorageService extends Facade implements FileStorageServiceInterface
             . (!$is_string ? $file->getClientOriginalExtension() : $fileData[1]);
 
         Storage::put($filePath, File::get($file));
+        Storage::setVisibility($filePath, 'public');
 
         return $filePath;
     }
